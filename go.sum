@@ -1,0 +1,6 @@
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/jesseokeya/go-httplogger v0.0.0-20180317073355-1d59886d22e1 h1:Q7VWOnaB+NCkc/KjqF4yfUoBQuzgKu+ggUGiCaAlgI0=
+github.com/jesseokeya/go-httplogger v0.0.0-20180317073355-1d59886d22e1/go.mod h1:wSy7moFAKTueMD8hIzH2nDksbW8hFVRgUbaN6JxtrFs=
+github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 h1:lDH9UUVJtmYCjyT0CI4q8xvlXPxeZ0gYCVvWbmPlp88=
+github.com/op/go-logging v0.0.0-20160315200505-970db520ece7/go.mod h1:HzydrMdWErDVzsI23lYNej1Htcns9BCg93Dk0bBINWk=
