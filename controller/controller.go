@@ -4,6 +4,7 @@ import (
 	"Project_Eular/models"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -20,6 +21,7 @@ const connectionString = "mongodb://localhost:27017"
 const dbName = "Eular"
 const userCollName = "user"
 const questionCollName = "question"
+const commentCollName = "comment"
 
 var SECRET_KEY = []byte("MY_SECRET_KEY")
 
@@ -31,6 +33,7 @@ type User struct {
 
 var userCollection *mongo.Collection
 var questionCollection *mongo.Collection
+var commentCollection *mongo.Collection
 
 func init() {
 	clientOptions := options.Client().ApplyURI(connectionString)
@@ -46,6 +49,7 @@ func init() {
 	fmt.Println("Connected to MongoDB!")
 	userCollection = client.Database(dbName).Collection(userCollName)
 	questionCollection = client.Database(dbName).Collection(questionCollName)
+	commentCollection = client.Database(dbName).Collection(commentCollName)
 }
 
 func GetLandingPage(w http.ResponseWriter, r *http.Request) {
@@ -155,7 +159,7 @@ func GenerateJWT() (string, error) {
 
 func InsertQuestions(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-COntrol-Allow-Origin", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Origin", "Content-Type")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	var question models.Question
@@ -171,4 +175,25 @@ func InsertQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(insertQuestionResponse)
+}
+
+func Comments(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "Content-Type")
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	var comment models.Comments
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(errors.New("something went wrong"))
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	json.Unmarshal(reqBody, &comment)
+	result, resultError := commentCollection.InsertOne(context.Background(), comment)
+	if resultError != nil {
+		http.Error(w, resultError.Error(), 500)
+		return
+	}
+	json.NewEncoder(w).Encode(result)
 }
