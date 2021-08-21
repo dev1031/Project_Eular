@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-
+import { useState } from 'react';
+import signup from '../API/signup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,27 +34,42 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp(){
     const classes = useStyles();
+    const [email , setEmail] = useState("");
+    const [username, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        var userCred = {
+            username , 
+            password ,
+            email
+        }
+        var response = await signup(userCred)
+        if (response.InsertedID) {
+          window.location.href = "/login"
+        }
+    }
     return (
       <div className ={classes.root}>
-        <form className={classes.rootForm} noValidate autoComplete="off">
+        <form className={classes.rootForm} onSubmit ={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs>
-              <TextField id="outlined-basic" label="UserName" variant="outlined" />
+              <TextField type ="text" id="outlined-basic" label="UserName" variant="outlined" value = {username} onChange={e => setUserName(e.target.value)}/>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs>
-              <TextField id="outlined-basic" label="Password" variant="outlined" />
+              <TextField type = "text" id="outlined-basic" label="Password" variant="outlined" value ={password} onChange = {e =>setPassword(e.target.value)}/>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs>
-              <TextField id="outlined-basic" label="Email" variant="outlined" />
+              <TextField type ="text" id="outlined-basic" label="Email" value= {email} variant="outlined" onChange={e => setEmail(e.target.value)}/>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs>
-              <Button className={classes.button}>SIGNUP</Button>
+              <Button className={classes.button} value = "Submit" type ="submit">SIGNUP</Button>
             </Grid>
           </Grid>
         </form>

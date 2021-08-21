@@ -4,6 +4,8 @@ import {
   Route
 } from "react-router-dom";
 
+import Login from "./components/login";
+
 import SignUp from "./components/signup";
 
 function App() {
@@ -11,8 +13,11 @@ function App() {
     <Router>
       <div>
        <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <SignUp />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
         </Switch>
       </div>
