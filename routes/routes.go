@@ -16,6 +16,8 @@ func Router() *mux.Router {
 	//r.Handle("/login", Authentication.AuthFunc(http.HandlerFunc(controller.Login))).Methods("POST", "OPTIONS")
 	r.Handle("/post_question", Authentication.AuthFunc(http.HandlerFunc(controller.InsertQuestions))).Methods("POST", "OPTIONS")
 	r.Handle("/post_comment", Authentication.AuthFunc(http.HandlerFunc(controller.Comments))).Methods("POST", "OPTIONS")
+	r.Handle("/profile/{id}", Authentication.AuthFunc(http.HandlerFunc(controller.Profile))).Methods("GET", "OPTIONS")
+	r.Handle("/imageUpload/{id}", Authentication.AuthFunc(http.HandlerFunc(controller.ImageUpload))).Methods("POST", "OPTIONS")
 	return r
 }
 
