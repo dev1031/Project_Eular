@@ -13,7 +13,6 @@ func Router() *mux.Router {
 	r.HandleFunc("/", controller.GetLandingPage).Methods("GET", "OPTIONS")
 	r.HandleFunc("/signup", controller.SignUp).Methods("POST", "OPTIONS")
 	r.HandleFunc("/login", controller.Login).Methods("POST", "OPTIONS")
-	//r.Handle("/login", Authentication.AuthFunc(http.HandlerFunc(controller.Login))).Methods("POST", "OPTIONS")
 	r.Handle("/post_question", Authentication.AuthFunc(http.HandlerFunc(controller.InsertQuestions))).Methods("POST", "OPTIONS")
 	r.Handle("/post_comment", Authentication.AuthFunc(http.HandlerFunc(controller.Comments))).Methods("POST", "OPTIONS")
 	r.Handle("/profile/{id}", Authentication.AuthFunc(http.HandlerFunc(controller.Profile))).Methods("GET", "OPTIONS")

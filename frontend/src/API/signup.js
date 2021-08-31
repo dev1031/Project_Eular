@@ -4,7 +4,7 @@ const signup = async (userCred)=>{
         password : userCred.password ,
         email: userCred.email 
     };
-    var result = await fetch('http://localhost:8080/signup',{
+    var result = await fetch('http://localhost:8000/signup',{
         method :"POST",
         headers: {
           'Content-Type': 'application/json'
